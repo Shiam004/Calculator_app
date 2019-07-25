@@ -34,21 +34,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clear(View view) {
-        String str = textView.getText().toString();
-        if (str.contains(".")) {
-            String[] parts = str.split("\\.");
+        try {
+            String str = textView.getText().toString();
+            if (str.contains(".")) {
+                String[] parts = str.split("\\.");
 
-            if (parts[1].length() > 1) {
-                str = str.substring(0, str.length() - 1);
+                if (parts[1].length() > 1) {
+                    str = str.substring(0, str.length() - 1);
+                } else {
+                    str = str.substring(0, str.length() - 2);
+                }
+
+                textView.setText(str);
+
             } else {
-                str = str.substring(0, str.length() - 2);
+                str = str.substring(0, str.length() - 1);
+                textView.setText(str);
             }
-
-            textView.setText(str);
-
-        }else{
-            str = str.substring(0, str.length() - 1);
-            textView.setText(str);
+        }catch (Exception e){
+            textView.setText("Invalid input");
         }
 
     }
@@ -58,17 +62,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void operation(View view) {
-
+        try {
         var1 = Double.parseDouble(textView.getText().toString());
 
 
         textView.setText("");
         operation = Integer.parseInt(view.getTag().toString());
-
+        }catch (Exception e){
+            textView.setText("Invalid input");
+        }
 
     }
 
     public void calculation(View view) {
+        try{
         var2 = Double.parseDouble(textView.getText().toString());
 
         if(operation == 1)
@@ -88,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(operation == 5){
             textView.setText(var1+"%"+var2+"="+var1%var2+"");
 
-
-
-
+        }
+        }catch (Exception e){
+            textView.setText("Invalid input");
         }
     }
 }
